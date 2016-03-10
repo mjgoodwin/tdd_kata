@@ -1,3 +1,5 @@
+require_relative './material_type'
+
 class PricingCalculator
   FLAT_MARKUP       = 0.05
   PER_WORKER_MARKUP = 0.012
@@ -25,16 +27,7 @@ class PricingCalculator
   end
 
   def material_markup(material)
-    case material
-    when :drugs
-      0.075
-    when :food
-      0.13
-    when :electronics
-      0.02
-    else
-      0
-    end
+    MaterialType.build(material).markup
   end
 
   def apply_markup(price, markup)

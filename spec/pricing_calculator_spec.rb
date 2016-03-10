@@ -37,4 +37,8 @@ describe PricingCalculator do
   it "includes a 2% markup for electronics" do
     expect(subject.price(1299.99, workers: 3, material: :electronics)).to be(1441.43)
   end
+
+  it "accepts strings for material type" do
+    expect(subject.price(1299.99, workers: 3, material: "electronics")).to be(1441.43)
+  end
 end
