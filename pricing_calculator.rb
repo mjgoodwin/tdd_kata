@@ -2,9 +2,9 @@ class PricingCalculator
   FLAT_MARKUP       = 0.05
   PER_WORKER_MARKUP = 0.012
 
-  def price(base_price, workers: 0)
+  def price(base_price, workers: 0, material: nil)
     price = apply_base_markup(base_price)
-    price = apply_worker_markup(price, workers)
+    price = apply_processing_markup(price, workers, material)
     currency(price)
   end
 
@@ -14,9 +14,23 @@ class PricingCalculator
     apply_markup(price, FLAT_MARKUP)
   end
 
-  def apply_worker_markup(price, workers)
+  def apply_processing_markup(price, workers, material)
+    total_markup = worker_markup(workers) + material_markup(material)
+    apply_markup(price, total_markup)
+  end
+
+  def worker_markup(workers)
     fail InvalidWorkersError unless workers.is_a?(Integer) && workers >= 0
-    apply_markup(price, workers * PER_WORKER_MARKUP)
+    workers * PER_WORKER_MARKUP
+  end
+
+  def material_markup(material)
+    case material
+    when :drugs
+      0.075
+    else
+      0
+    end
   end
 
   def apply_markup(price, markup)

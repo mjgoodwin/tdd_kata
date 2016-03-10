@@ -18,4 +18,12 @@ describe PricingCalculator do
   it "raises error on invalid worker input" do
     expect{subject.price(12456.95, workers: -4)}.to raise_error(InvalidWorkersError)
   end
+
+  it "includes no markup for books" do
+    expect(subject.price(12456.95, workers: 4, material: :books)).to be(13707.63)
+  end
+
+  it "includes a 7.5% markup for drugs" do
+    expect(subject.price(5432, workers: 1, material: :drugs)).to be(6199.81)
+  end
 end
