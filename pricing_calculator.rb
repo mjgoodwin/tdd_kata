@@ -28,6 +28,10 @@ class PricingCalculator
     case material
     when :drugs
       0.075
+    when :food
+      0.13
+    when :electronics
+      0.02
     else
       0
     end
