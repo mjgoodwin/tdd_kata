@@ -3,7 +3,7 @@ require_relative '../pricing_calculator'
 describe PricingCalculator do
   subject(:calculator) { PricingCalculator.new }
 
-  it "works" do
-    expect(subject.price).to be(1000)
+  it "includes a flat 5% markup" do
+    expect(subject.price(1299.99)).to be(1364.99)
   end
 end
